@@ -1,0 +1,153 @@
+
+
+
+
+              
+              Save Code
+
+               Dim StudentId As Integer = TextBox1.Text
+        Dim StudentName As String = TextBox2.Text
+        Dim RollNo As String = TextBox3.Text
+        Dim Status As String = TextBox4.Text
+
+
+
+
+        Dim query As String = "Insert into newtab values(@studentid,@studentname,@rollno,@status)"
+
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-ADG77QL\SQLEXPRESS;Initial Catalog=studentdb;Integrated Security=True")
+
+            Using cnn As SqlCommand = New SqlCommand(query, con)
+
+                cnn.Parameters.AddWithValue("@StudentId", StudentId)
+                cnn.Parameters.AddWithValue("@StudentName", StudentName)
+
+                cnn.Parameters.AddWithValue("@RollNo", RollNo)
+                cnn.Parameters.AddWithValue("@Status", Status)
+
+                con.Open()
+
+
+                cnn.ExecuteNonQuery()
+
+                con.Close()
+
+
+                MessageBox.Show("Record Saved Successfully")
+
+
+
+            End Using
+
+        End Using
+
+
+
+
+       Insert Code
+
+
+         Dim query As String = "select * from newtab"
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-ADG77QL\SQLEXPRESS;Initial Catalog=studentdb;Integrated Security=True")
+
+            Using cnn As SqlCommand = New SqlCommand(query, con)
+
+                Using da As New SqlDataAdapter(cnn)
+
+                    Using table As New DataTable()
+
+
+                        da.Fill(table)
+
+                        DataGridView1.DataSource = table
+
+
+
+
+                    End Using
+
+
+
+                End Using
+
+
+            End Using
+
+
+        End Using
+
+
+
+       Update Code
+
+
+        Dim StudentId As Integer = TextBox1.Text
+        Dim StudentName As String = TextBox2.Text
+        Dim RollNo As String = TextBox3.Text
+        Dim Status As String = TextBox4.Text
+
+
+      Dim query As String = "update newtab set studentname=@studentname,rollno=@rollno,status=@status where studentid=@studentid"
+
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-ADG77QL\SQLEXPRESS;Initial Catalog=studentdb;Integrated Security=True")
+
+            con.Open()
+
+
+
+            Using cnn As SqlCommand = New SqlCommand(query, con)
+
+                cnn.Parameters.AddWithValue("@StudentId", StudentId)
+                cnn.Parameters.AddWithValue("@StudentName", StudentName)
+
+                cnn.Parameters.AddWithValue("@RollNo", RollNo)
+                cnn.Parameters.AddWithValue("@Status", Status)
+
+                cnn.ExecuteNonQuery()
+
+
+                con.Close()
+
+                MessageBox.Show("Record Updated Successfully")
+
+
+
+
+            End Using
+
+        End Using
+
+
+
+      Delete Code
+
+
+       Dim StudentId As Integer = TextBox1.Text
+
+
+
+        Dim query As String = "delete newtab where studentid=@studentid"
+
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-ADG77QL\SQLEXPRESS;Initial Catalog=studentdb;Integrated Security=True")
+
+            con.Open()
+
+            Using cnn As SqlCommand = New SqlCommand(query, con)
+
+                cnn.Parameters.AddWithValue("@StudentId", StudentId)
+
+                cnn.ExecuteNonQuery()
+
+                con.Close()
+
+                MessageBox.Show("Record Deleted Successfully")
+
+
+
+
+
+            End Using
+
+        End Using
+
+
